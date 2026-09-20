@@ -20,10 +20,11 @@ export default async function ModuloPage({
   if (!modulo) notFound();
 
   const temProjeto = modulo.meta?.status_projeto === "completo" && modulo.meta.projeto_path;
-  const [enunciado, criterios] = temProjeto
+  const projetoBase = temProjeto ? `modulos/${slug}/${modulo.meta!.projeto_path}` : null;
+  const [enunciado, criterios] = projetoBase
     ? await Promise.all([
-        fetchRawFile(trilha, `${modulo.meta!.projeto_path}ENUNCIADO.md`),
-        fetchRawFile(trilha, `${modulo.meta!.projeto_path}CRITERIOS_ACEITE.md`),
+        fetchRawFile(trilha, `${projetoBase}ENUNCIADO.md`),
+        fetchRawFile(trilha, `${projetoBase}CRITERIOS_ACEITE.md`),
       ])
     : [null, null];
 

@@ -103,7 +103,21 @@ body {
     color: transparent;
   }
 
+  /* Decoração de grade no topo da página. Fica num ::before de altura fixa (100vh) e
+     z-index negativo, isolado do conteúdo — mask-image afeta TUDO dentro do elemento
+     em que é aplicado (não só o background), entao nunca aplicar direto num container
+     que tambem tem texto/filhos, ou o conteudo mais abaixo na pagina vira invisivel. */
   .bg-grid {
+    position: relative;
+    isolation: isolate;
+  }
+  .bg-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
     background-image:
       linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
