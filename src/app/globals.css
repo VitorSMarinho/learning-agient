@@ -1,0 +1,174 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Learning Agient - tema dark unico. Tokens herdados da identidade do agient-os/agient-web. */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-sans), "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  --background: #111112;
+  --foreground: #f4f4f5;
+  --card: #17181a;
+  --card-foreground: #f4f4f5;
+  --popover: #17181a;
+  --popover-foreground: #f4f4f5;
+  --primary: #c8a44d;
+  --primary-foreground: #1a1406;
+  --secondary: #232326;
+  --secondary-foreground: #f4f4f5;
+  --muted: #232326;
+  --muted-foreground: #a1a1aa;
+  --accent: #232326;
+  --accent-foreground: #f4f4f5;
+  --destructive: #e5484d;
+  --destructive-foreground: #fff5f5;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #c8a44d;
+  --radius: 0.625rem;
+
+  /* brand */
+  --gold: #c8a44d;
+  --gold-lite: #e7c978;
+  --gold-dark: #9c7c33;
+  --onyx: #111112;
+  --graphite: #232323;
+  --cyan: #4cc9f0;
+  --cyan-lite: #8fe0f7;
+  --cyan-dark: #2c8fac;
+
+  /* trilha: IA = dourado, Dados = cyan */
+  --trilha-ia: var(--gold);
+  --trilha-ia-lite: var(--gold-lite);
+  --trilha-dados: var(--cyan);
+  --trilha-dados-lite: var(--cyan-lite);
+
+  color-scheme: dark;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer utilities {
+  .text-gold {
+    background: linear-gradient(180deg, #e7c978 0%, #c8a44d 55%, #9c7c33 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-cyan-brand {
+    background: linear-gradient(180deg, #8fe0f7 0%, #4cc9f0 55%, #2c8fac 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+
+  .card-surface {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent),
+      var(--card);
+    border: 1px solid var(--border);
+    transition:
+      border-color 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  .card-surface:hover {
+    transform: translateY(-3px);
+  }
+  .card-surface.trilha-ia:hover {
+    border-color: color-mix(in oklch, var(--trilha-ia) 45%, transparent);
+    box-shadow: 0 18px 40px -24px rgba(200, 164, 77, 0.45);
+  }
+  .card-surface.trilha-dados:hover {
+    border-color: color-mix(in oklch, var(--trilha-dados) 45%, transparent);
+    box-shadow: 0 18px 40px -24px rgba(76, 201, 240, 0.45);
+  }
+
+  /* numero do modulo, estetica de syllabus tecnico */
+  .modulo-numero {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* badge de status por modulo, no espirito de progresso da DIO */
+  .badge-status {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .badge-status[data-status="nao_iniciado"] {
+    color: var(--muted-foreground);
+  }
+  .badge-status[data-status="a_detalhar"] {
+    color: var(--muted-foreground);
+    border-style: dashed;
+  }
+  .badge-status[data-status="pendente"] {
+    color: var(--trilha-ia-lite);
+    border-color: color-mix(in oklch, var(--trilha-ia) 50%, transparent);
+  }
+  .badge-status[data-status="aprovado"] {
+    color: #7ee08a;
+    border-color: color-mix(in oklch, #7ee08a 50%, transparent);
+  }
+  .badge-status[data-status="precisa_ajuste"] {
+    color: var(--destructive);
+    border-color: color-mix(in oklch, var(--destructive) 50%, transparent);
+  }
+}
