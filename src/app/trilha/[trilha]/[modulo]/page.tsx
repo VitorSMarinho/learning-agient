@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+import { ComoFazer } from "@/components/trilha/como-fazer";
 import { StatusBadge } from "@/components/trilha/status-badge";
 import { buscarModulo } from "@/lib/content/modulo";
 import { fetchRawFile, repoDaTrilha } from "@/lib/content/github";
@@ -76,6 +77,10 @@ export default async function ModuloPage({
               </details>
             )}
           </section>
+        )}
+
+        {temProjeto && (
+          <ComoFazer repo={repo} slug={slug} titulo={modulo.catalogo.titulo} />
         )}
 
         {modulo.review && (
